@@ -4,6 +4,21 @@ import { useMemo, useState } from "react";
 
 type Lang = "ar" | "en" | "fr";
 
+type MenuItem = {
+  ar: [string, string];
+  en: [string, string];
+  fr: [string, string];
+  price: string;
+};
+
+type MenuSection = {
+  id: string;
+  ar: string;
+  en: string;
+  fr: string;
+  items: MenuItem[];
+};
+
 const links = {
   website: "https://houseof-antiques.com",
   store: "https://houseofantiques.store",
@@ -42,7 +57,63 @@ const navLabels = {
   },
 };
 
-const sections = [
+const sections: MenuSection[] = [
+  {
+  id: "baghdadi-breakfast",
+  ar: "الفطور البغدادي",
+  en: "Baghdadi Breakfast",
+  fr: "Petit Déjeuner Bagdadien",
+  items: [
+    {
+      ar: ["فطور بيت التحفيات لشخصين", "صينية فطور بغدادية تضم قيمر ودبس، جبن عرب، بيض، باقلاء، خضار، خبز عراقي وشاي."],
+      en: ["House of Antiques Breakfast for Two", "A Baghdadi breakfast tray with geymar and date molasses, Arab cheese, eggs, broad beans, vegetables, Iraqi bread, and tea."],
+      fr: ["Petit Déjeuner House of Antiques pour Deux", "Plateau de petit déjeuner bagdadien avec geymar et mélasse de dattes, fromage arabe, œufs, fèves, légumes, pain irakien et thé."],
+      price: "18000",
+    },
+    {
+      ar: ["قيمر ودبس", "قيمر عراقي غني يقدم مع دبس التمر وخبز عراقي ساخن."],
+      en: ["Geymar and Date Molasses", "Rich Iraqi clotted cream served with date molasses and warm Iraqi bread."],
+      fr: ["Geymar et Mélasse de Dattes", "Crème irakienne riche servie avec mélasse de dattes et pain irakien chaud."],
+      price: "7000",
+    },
+    {
+      ar: ["تشريب باقلاء", "باقلاء عراقية دافئة مع خبز منقوع وبيض حسب الاختيار."],
+      en: ["Iraqi Broad Bean Tashreeb", "Warm Iraqi broad beans with soaked bread and optional egg."],
+      fr: ["Tashreeb de Fèves Irakien", "Fèves irakiennes chaudes avec pain imbibé et œuf au choix."],
+      price: "7000",
+    },
+    {
+      ar: ["مخلمة عراقية", "بيض مقلي مع لحم وبصل وطماطم وتوابل عراقية، يقدم مع خبز ساخن."],
+      en: ["Iraqi Mekhlemma", "Fried eggs with meat, onion, tomato, and Iraqi spices, served with warm bread."],
+      fr: ["Mekhlemma Irakienne", "Œufs frits avec viande, oignon, tomate et épices irakiennes, servis avec pain chaud."],
+      price: "6500",
+    },
+    {
+      ar: ["بيض وطماطة", "بيض مقلي مع الطماطم والبصل بتتبيلة عراقية بسيطة."],
+      en: ["Eggs with Tomato", "Fried eggs with tomato and onion in a simple Iraqi seasoning."],
+      fr: ["Œufs à la Tomate", "Œufs frits avec tomate et oignon, assaisonnement irakien simple."],
+      price: "5000",
+    },
+    {
+      ar: ["بيض مسلوق مع خضار", "بيض مسلوق يقدم مع خيار وطماطم وزيتون وخبز عراقي."],
+      en: ["Boiled Eggs with Vegetables", "Boiled eggs served with cucumber, tomato, olives, and Iraqi bread."],
+      fr: ["Œufs Durs avec Légumes", "Œufs durs servis avec concombre, tomate, olives et pain irakien."],
+      price: "4500",
+    },
+    {
+      ar: ["جبن عرب وخبز حار", "جبن عربي طري يقدم مع خبز ساخن وخضار طازجة."],
+      en: ["Arab Cheese with Warm Bread", "Soft Arab cheese served with warm bread and fresh vegetables."],
+      fr: ["Fromage Arabe avec Pain Chaud", "Fromage arabe tendre servi avec pain chaud et légumes frais."],
+      price: "5000",
+    },
+    {
+      ar: ["صحن فطور بغدادي صغير", "اختيار خفيف من الجبن، الزيتون، الخضار، البيض وخبز عراقي."],
+      en: ["Small Baghdadi Breakfast Plate", "A light selection of cheese, olives, vegetables, eggs, and Iraqi bread."],
+      fr: ["Petite Assiette de Petit Déjeuner Bagdadien", "Sélection légère de fromage, olives, légumes, œufs et pain irakien."],
+      price: "9000",
+    },
+  ],
+},
   {
     id: "sandwiches",
     ar: "السندويشات",
@@ -53,19 +124,19 @@ const sections = [
         ar: ["سندويش كباب عروگ", "كباب عراقي مقلي بتوابل تقليدية، يلف بخبز التنور مع الطماطم والبصل."],
         en: ["Iraqi Aroog Kebab Sandwich", "Traditional fried Iraqi kebab wrapped in tanoor bread with tomato and onion."],
         fr: ["Sandwich Kebab Aroog Irakien", "Kebab irakien traditionnel frit, servi dans du pain tanoor avec tomate et oignon."],
-        price: "3500",
+        price: "5000",
       },
       {
         ar: ["سندويش لسان", "شرائح لسان بقري مطبوخ بعناية، يقدم في خبز عراقي مع مخللات خاصة."],
         en: ["Beef Tongue Sandwich", "Tender beef tongue slices served in Iraqi bread with house pickles."],
         fr: ["Sandwich Langue de Bœuf", "Tranches de langue de bœuf tendre servies dans du pain irakien avec pickles maison."],
-        price: "3500",
+        price: "5000",
       },
       {
         ar: ["سندويش مخ الخروف", "مخ الخروف الطري المطبوخ على البخار، يقدم مع رشة ليمون وملح في خبز الصمون."],
         en: ["Lamb Brain Sandwich", "Steamed lamb brain served with lemon and salt in Iraqi samoon bread."],
         fr: ["Sandwich Cervelle d’Agneau", "Cervelle d’agneau vapeur servie avec citron et sel dans du pain samoon."],
-        price: "3500",
+        price: "5000",
       },
       {
         ar: ["سندويش كيمر عرب", "كيمر عراقي غني ودسم يقدم مع الدبس أو العسل حسب الاختيار."],
@@ -84,6 +155,118 @@ const sections = [
         en: ["Chicken Tapsi Sandwich", "Chicken cooked with eggplant, potato, and tomato sauce, served in warm bread."],
         fr: ["Sandwich Tapsi au Poulet", "Poulet mijoté avec aubergine, pomme de terre et sauce tomate dans du pain chaud."],
         price: "5000",
+      },
+      {
+        ar: ["سندويش باسطرمة بيت التحفيات", "شرائح باسطرمة متبلة تقدم في خبز عراقي ساخن مع الطماطم والمخلل."],
+        en: ["House Pastrami Sandwich", "Seasoned pastrami slices served in warm Iraqi bread with tomato and pickles."],
+        fr: ["Sandwich Pastrami de la Maison", "Tranches de pastrami épicées servies dans du pain irakien chaud avec tomate et pickles."],
+        price: "5000",
+      },
+      {
+        ar: ["سندويش كبدة بغدادية", "كبدة مقلية بتوابل عراقية مع البصل والطماطم، تقدم في خبز الصمون أو التنور."],
+        en: ["Baghdadi Liver Sandwich", "Fried liver with Iraqi spices, onion, and tomato, served in samoon or tanoor bread."],
+        fr: ["Sandwich Foie Bagdadien", "Foie poêlé aux épices irakiennes avec oignon et tomate, servi dans du pain samoon ou tanoor."],
+        price: "5000",
+      },
+      {
+        ar: ["سندويش لحم بقري عراقي", "لحم بقري مطبوخ على الطريقة العراقية مع البصل والتوابل، يقدم في خبز ساخن."],
+        en: ["Iraqi-Style Beef Sandwich", "Beef cooked Iraqi style with onion and spices, served in warm bread."],
+        fr: ["Sandwich Bœuf à l’Irakienne", "Bœuf cuisiné à l’irakienne avec oignon et épices, servi dans du pain chaud."],
+        price: "5500",
+      },
+      {
+        ar: ["سندويش جبن عرب", "جبن عربي طري يقدم في خبز ساخن مع خيار وطماطم حسب الاختيار."],
+        en: ["Arab Cheese Sandwich", "Soft Arab cheese served in warm bread with cucumber and tomato upon request."],
+        fr: ["Sandwich Fromage Arabe", "Fromage arabe tendre servi dans du pain chaud avec concombre et tomate au choix."],
+        price: "4500",
+      },
+      {
+        ar: ["سندويش بيض وبطاطا", "بيض مسلوق أو مقلي مع بطاطا، يقدم في خبز عراقي مع رشة ملح وفلفل."],
+        en: ["Egg and Potato Sandwich", "Boiled or fried egg with potato, served in Iraqi bread with salt and pepper."],
+        fr: ["Sandwich Œuf et Pomme de Terre", "Œuf dur ou frit avec pomme de terre, servi dans du pain irakien avec sel et poivre."],
+        price: "4500",
+      },
+      {
+        ar: ["سندويش حبش", "شرائح حبش خفيفة تقدم في خبز ساخن مع الخس والطماطم وصلصة خاصة."],
+        en: ["Turkey Sandwich", "Light turkey slices served in warm bread with lettuce, tomato, and house sauce."],
+        fr: ["Sandwich Dinde", "Tranches de dinde servies dans du pain chaud avec laitue, tomate et sauce maison."],
+        price: "5000",
+      },
+    ],
+  },
+  {
+    id: "salads",
+    ar: "السلطات",
+    en: "Salads",
+    fr: "Salades",
+    items: [
+      {
+        ar: ["سلطة دجاج بيت التحفيات", "دجاج مشوي مع خضار طازجة وصلصة خفيفة بنكهة شرقية."],
+        en: ["House Chicken Salad", "Grilled chicken with fresh vegetables and a light oriental dressing."],
+        fr: ["Salade Poulet de la Maison", "Poulet grillé avec légumes frais et sauce orientale légère."],
+        price: "7000",
+      },
+      {
+        ar: ["سلطة لحم", "شرائح لحم بقري متبلة مع خضار موسمية ولمسة دبس رمان."],
+        en: ["Beef Salad", "Seasoned beef slices with seasonal vegetables and a touch of pomegranate molasses."],
+        fr: ["Salade de Bœuf", "Tranches de bœuf assaisonnées avec légumes de saison et mélasse de grenade."],
+        price: "8000",
+      },
+      {
+        ar: ["سلطة بقوليات", "حمص وفاصوليا وبقوليات مشكلة مع زيت الزيتون والليمون."],
+        en: ["Legume Salad", "Chickpeas, beans, and mixed legumes with olive oil and lemon."],
+        fr: ["Salade de Légumineuses", "Pois chiches, haricots et légumineuses avec huile d’olive et citron."],
+        price: "5000",
+      },
+      {
+        ar: ["سلطة بغدادية", "خيار وطماطم وبصل وأعشاب طازجة بخلطة بيتية بسيطة."],
+        en: ["Baghdadi Salad", "Cucumber, tomato, onion, and fresh herbs with a simple house dressing."],
+        fr: ["Salade Bagdadienne", "Concombre, tomate, oignon et herbes fraîches avec sauce maison."],
+        price: "4000",
+      },
+    ],
+  },
+  {
+    id: "appetizers",
+    ar: "المقبلات",
+    en: "Appetizers",
+    fr: "Entrées",
+    items: [
+      {
+        ar: ["حمص لبلبي", "حمص مسلوق يقدم دافئاً مع الليمون والكمون وزيت الزيتون."],
+        en: ["Warm Chickpeas", "Boiled chickpeas served warm with lemon, cumin, and olive oil."],
+        fr: ["Pois Chiches Chauds", "Pois chiches bouillis servis chauds avec citron, cumin et huile d’olive."],
+        price: "4000",
+      },
+      {
+        ar: ["باقلاء", "باقلاء عراقية تقدم دافئة مع الخبز والليمون."],
+        en: ["Iraqi Broad Beans", "Warm Iraqi broad beans served with bread and lemon."],
+        fr: ["Fèves Irakiennes", "Fèves irakiennes chaudes servies avec pain et citron."],
+        price: "4000",
+      },
+      {
+        ar: ["محروك أصبعه", "عدس وعجين مقلي مع بصل مكرمل ودبس رمان بنكهة شامية قديمة."],
+        en: ["Muharraq Isba’o", "Lentils with fried dough, caramelized onion, and pomegranate molasses."],
+        fr: ["Muharraq Isba’o", "Lentilles avec pâte frite, oignon caramélisé et mélasse de grenade."],
+        price: "5000",
+      },
+      {
+        ar: ["كبدة مقبلات", "قطع كبدة مقلية بتوابل عراقية تقدم مع الليمون والخبز."],
+        en: ["Liver Appetizer", "Fried liver pieces with Iraqi spices, served with lemon and bread."],
+        fr: ["Entrée de Foie", "Morceaux de foie poêlés aux épices irakiennes, servis avec citron et pain."],
+        price: "6000",
+      },
+      {
+        ar: ["جاجيك", "خيار ولبن مع نعناع وثوم خفيف، يقدم بارداً."],
+        en: ["Jajik", "Cucumber and yogurt with mint and light garlic, served cold."],
+        fr: ["Jajik", "Concombre et yaourt avec menthe et ail léger, servi froid."],
+        price: "3500",
+      },
+      {
+        ar: ["حمص باللحمة", "حمص كريمي تعلوه قطع لحم متبلة وزيت زيتون."],
+        en: ["Hummus with Meat", "Creamy hummus topped with seasoned meat and olive oil."],
+        fr: ["Houmous à la Viande", "Houmous crémeux garni de viande assaisonnée et d’huile d’olive."],
+        price: "6500",
       },
     ],
   },
@@ -144,7 +327,7 @@ const sections = [
         price: "4000",
       },
       {
-        ar: ["جاي و حليب", "مزيج من الشاي والحليب الساخن يقدم بطابع بيتي دافئ."],
+        ar: ["جاي وحليب", "مزيج من الشاي والحليب الساخن يقدم بطابع بيتي دافئ."],
         en: ["Tea with Milk", "Hot tea blended with milk, served with a warm homemade character."],
         fr: ["Thé au Lait", "Thé chaud mélangé au lait, servi dans un esprit chaleureux."],
         price: "4500",
@@ -154,6 +337,60 @@ const sections = [
         en: ["Karak Tea", "Tea cooked with milk and spices, rich and creamy."],
         fr: ["Thé Karak", "Thé cuit avec lait et épices, riche et crémeux."],
         price: "5000",
+      },
+      {
+        ar: ["إسبريسو", "قهوة مركزة بطبقة كريما ناعمة لمحبي الطعم القوي."],
+        en: ["Espresso", "Concentrated coffee with a smooth crema for strong coffee lovers."],
+        fr: ["Espresso", "Café concentré avec une crème légère pour les amateurs de café fort."],
+        price: "4000",
+      },
+      {
+        ar: ["أمريكانو", "إسبريسو مع ماء ساخن بطعم متوازن وخفيف."],
+        en: ["Americano", "Espresso with hot water for a balanced and lighter taste."],
+        fr: ["Americano", "Espresso allongé à l’eau chaude pour un goût équilibré."],
+        price: "4500",
+      },
+      {
+        ar: ["كابتشينو", "إسبريسو مع حليب مبخر ورغوة ناعمة."],
+        en: ["Cappuccino", "Espresso with steamed milk and soft foam."],
+        fr: ["Cappuccino", "Espresso avec lait vapeur et mousse légère."],
+        price: "5500",
+      },
+      {
+        ar: ["لاتيه", "قهوة ناعمة بالحليب المبخر، مناسبة لطعم خفيف وكريمي."],
+        en: ["Latte", "Smooth coffee with steamed milk, light and creamy."],
+        fr: ["Latte", "Café doux au lait vapeur, léger et crémeux."],
+        price: "5500",
+      },
+      {
+        ar: ["فلات وايت", "قهوة غنية بالحليب بقوام مخملي وطعم أوضح من اللاتيه."],
+        en: ["Flat White", "Rich coffee with velvety milk and a stronger taste than latte."],
+        fr: ["Flat White", "Café riche avec lait velouté et goût plus marqué qu’un latte."],
+        price: "6000",
+      },
+      {
+        ar: ["موكا", "قهوة بالحليب والشوكولاتة بطعم دافئ وغني."],
+        en: ["Mocha", "Coffee with milk and chocolate for a warm rich flavor."],
+        fr: ["Mocha", "Café au lait et chocolat, chaud et riche."],
+        price: "6000",
+      },
+      {
+        ar: ["ماكياتو", "إسبريسو مع لمسة حليب ورغوة خفيفة."],
+        en: ["Macchiato", "Espresso with a touch of milk and light foam."],
+        fr: ["Macchiato", "Espresso avec une touche de lait et mousse légère."],
+        price: "5000",
+      },
+      {
+        ar: ["هوت شوكليت", "شوكولاتة ساخنة بالحليب، كثيفة وناعمة."],
+        en: ["Hot Chocolate", "Warm milk chocolate, rich and smooth."],
+        fr: ["Chocolat Chaud", "Chocolat au lait chaud, riche et doux."],
+        price: "5500",
+      },
+      {
+        ar: ["قهوة تركية", "قهوة تركية ثقيلة تقدم بأسلوب كلاسيكي."],
+        en: ["Turkish Coffee", "Strong Turkish coffee served in a classic style."],
+        fr: ["Café Turc", "Café turc fort servi dans un style classique."],
+        price: "4500",
       },
     ],
   },
@@ -187,8 +424,101 @@ const sections = [
         fr: ["Hibiscus Glacé", "Boisson froide d’hibiscus, rouge vif et acidulée."],
         price: "3500",
       },
+      {
+        ar: ["آيس أمريكانو", "إسبريسو مع ماء بارد وثلج لطعم قوي ومنعش."],
+        en: ["Iced Americano", "Espresso with cold water and ice for a strong refreshing taste."],
+        fr: ["Americano Glacé", "Espresso avec eau froide et glace, fort et rafraîchissant."],
+        price: "5000",
+      },
+      {
+        ar: ["آيس لاتيه", "قهوة باردة مع الحليب والثلج بقوام ناعم."],
+        en: ["Iced Latte", "Cold coffee with milk and ice, smooth and creamy."],
+        fr: ["Latte Glacé", "Café froid au lait et glace, doux et crémeux."],
+        price: "6000",
+      },
+      {
+        ar: ["سبانش لاتيه بارد", "قهوة باردة بالحليب المحلى، ناعمة وغنية."],
+        en: ["Iced Spanish Latte", "Cold coffee with sweetened milk, smooth and rich."],
+        fr: ["Spanish Latte Glacé", "Café froid au lait sucré, doux et riche."],
+        price: "6500",
+      },
+      {
+        ar: ["كراميل آيس لاتيه", "لاتيه بارد مع صوص الكراميل ولمسة حلاوة متوازنة."],
+        en: ["Caramel Iced Latte", "Iced latte with caramel sauce and balanced sweetness."],
+        fr: ["Latte Glacé au Caramel", "Latte froid avec sauce caramel et douceur équilibrée."],
+        price: "6500",
+      },
+      {
+        ar: ["فرابتشينو", "قهوة مثلجة مخفوقة بالحليب والثلج بطعم كريمي."],
+        en: ["Frappuccino", "Blended iced coffee with milk and ice, creamy and cold."],
+        fr: ["Frappuccino", "Café glacé mixé avec lait et glace, froid et crémeux."],
+        price: "7000",
+      },
+      {
+        ar: ["موكا بارد", "قهوة باردة بالشوكولاتة والحليب والثلج."],
+        en: ["Iced Mocha", "Cold coffee with chocolate, milk, and ice."],
+        fr: ["Mocha Glacé", "Café froid au chocolat, lait et glace."],
+        price: "6500",
+      },
+      {
+        ar: ["عصير برتقال", "عصير برتقال طازج ومنعش."],
+        en: ["Orange Juice", "Fresh and refreshing orange juice."],
+        fr: ["Jus d’Orange", "Jus d’orange frais et rafraîchissant."],
+        price: "6000",
+      },
+      {
+        ar: ["عصير رمان", "عصير رمان بارد بطعم حامض وحلو متوازن."],
+        en: ["Pomegranate Juice", "Cold pomegranate juice with a balanced sweet and tangy taste."],
+        fr: ["Jus de Grenade", "Jus de grenade froid, doux et acidulé."],
+        price: "7000",
+      },
     ],
+    
   },
+  {
+  id: "mojito",
+  ar: "الموهيتو",
+  en: "Mojito",
+  fr: "Mojito",
+  items: [
+    {
+      ar: ["موهيتو كلاسيك", "ليمون ونعناع طازج مع صودا وثلج، بطعم منعش وخفيف."],
+      en: ["Classic Mojito", "Fresh lemon and mint with soda and ice, light and refreshing."],
+      fr: ["Mojito Classique", "Citron frais et menthe avec soda et glace, léger et rafraîchissant."],
+      price: "6000",
+    },
+    {
+      ar: ["موهيتو فراولة", "فراولة مع نعناع وليمون وصودا، نكهة حلوة ومنعشة."],
+      en: ["Strawberry Mojito", "Strawberry with mint, lemon, and soda, sweet and refreshing."],
+      fr: ["Mojito Fraise", "Fraise avec menthe, citron et soda, doux et rafraîchissant."],
+      price: "6500",
+    },
+    {
+      ar: ["موهيتو باشن فروت", "باشن فروت مع نعناع وصودا، نكهة استوائية مميزة."],
+      en: ["Passion Fruit Mojito", "Passion fruit with mint and soda, with a tropical flavor."],
+      fr: ["Mojito Fruit de la Passion", "Fruit de la passion avec menthe et soda, saveur tropicale."],
+      price: "7000",
+    },
+    {
+      ar: ["موهيتو بلو بيري", "توت أزرق مع نعناع وليمون وصودا بطعم بارد وغني."],
+      en: ["Blueberry Mojito", "Blueberry with mint, lemon, and soda, cool and rich."],
+      fr: ["Mojito Myrtille", "Myrtille avec menthe, citron et soda, frais et riche."],
+      price: "7000",
+    },
+    {
+      ar: ["موهيتو رمان", "رمان مع نعناع وليمون وصودا، بطابع شرقي منعش."],
+      en: ["Pomegranate Mojito", "Pomegranate with mint, lemon, and soda, refreshing with an oriental touch."],
+      fr: ["Mojito Grenade", "Grenade avec menthe, citron et soda, rafraîchissant avec une touche orientale."],
+      price: "7000",
+    },
+    {
+      ar: ["موهيتو بيت التحفيات", "خلطة خاصة من الليمون والنعناع والفواكه الموسمية بطابع البيت."],
+      en: ["House of Antiques Mojito", "A house blend of lemon, mint, and seasonal fruits."],
+      fr: ["Mojito House of Antiques", "Mélange maison de citron, menthe et fruits de saison."],
+      price: "7500",
+    },
+  ],
+},
   {
     id: "herbal-drinks",
     ar: "المشروبات العشبية",
@@ -227,6 +557,32 @@ const sections = [
       },
     ],
   },
+  {
+    id: "hookah",
+    ar: "النراكيل",
+    en: "Hookah",
+    fr: "Narguilé",
+    items: [
+      {
+        ar: ["نركيلة تفاحتين بيت التحفيات", "نكهة كلاسيكية ثابتة بطابع المقاهي العراقية القديمة."],
+        en: ["House Double Apple Hookah", "A classic steady flavor inspired by old Iraqi cafés."],
+        fr: ["Narguilé Double Pomme de la Maison", "Saveur classique inspirée des anciens cafés irakiens."],
+        price: "12000",
+      },
+      {
+        ar: ["نركيلة عنب ونعناع", "مزيج بارد ومنعش من العنب والنعناع."],
+        en: ["Grape Mint Hookah", "A cool and refreshing blend of grape and mint."],
+        fr: ["Narguilé Raisin Menthe", "Mélange frais de raisin et menthe."],
+        price: "12000",
+      },
+      {
+        ar: ["نركيلة ليمون ونعناع", "نكهة خفيفة ومنعشة بلمسة حمضية."],
+        en: ["Lemon Mint Hookah", "A light and refreshing flavor with a citrus touch."],
+        fr: ["Narguilé Citron Menthe", "Saveur légère et fraîche avec une touche citronnée."],
+        price: "12000",
+      },
+    ],
+  },
 ];
 
 export default function Home() {
@@ -249,52 +605,52 @@ export default function Home() {
   return (
     <main
       dir={isRtl ? "rtl" : "ltr"}
-     className="min-h-screen bg-[#f4efe4] text-[#1f1a14] paper-grain"
+      className="min-h-screen bg-[#f4efe4] text-[#1f1a14] paper-grain"
     >
       <header className="topbar-motion fixed left-0 right-0 top-0 z-50 border-b border-[#1f1a14]/10 bg-[#f4efe4]/88 backdrop-blur-xl">
-  <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-    {/* RIGHT LOGO */}
-    <a
-      href="#top"
-      className="flex shrink-0 items-center gap-3"
-      aria-label="House of Antiques Café"
-    >
-      <img
-        src="/menu-assets/logo.png"
-        alt="House of Antiques Logo"
-        className="h-9 w-9 rounded-full object-contain"
-      />
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+          <a
+            href="#top"
+            className="flex shrink-0 items-center gap-3"
+            aria-label="House of Antiques Café"
+          >
+            <img
+              src="/menu-assets/logo.png"
+              alt="House of Antiques Logo"
+              className="h-9 w-9 rounded-full object-contain"
+            />
 
-      <div className="hidden leading-none sm:block">
-        <p className="font-vintage-en text-[11px] font-semibold tracking-[0.32em]">
-          HOA CAFÉ
-        </p>
-        <p className="mt-1 text-[10px] tracking-[0.18em] text-[#8a2f2a]">
-          House of Antiques
-        </p>
-      </div>
-    </a>
+            <div className="hidden leading-none sm:block">
+              <p className="font-vintage-en text-[11px] font-semibold tracking-[0.32em]">
+                HOA CAFÉ
+              </p>
+              <p className="mt-1 text-[10px] tracking-[0.18em] text-[#8a2f2a]">
+                House of Antiques
+              </p>
+            </div>
+          </a>
 
-    {/* LEFT LINKS */}
-    <nav className="flex items-center gap-2 text-[11px]">
-      <a
-        href={links.website}
-        target="_blank"
-        className="rounded-full border border-[#1f1a14]/15 px-3 py-2 transition hover:bg-[#1f1a14] hover:text-[#f4efe4]"
-      >
-        {t.website}
-      </a>
+          <nav className="flex items-center gap-2 text-[11px]">
+            <a
+              href={links.website}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-[#1f1a14]/15 px-3 py-2 transition hover:bg-[#1f1a14] hover:text-[#f4efe4]"
+            >
+              {t.website}
+            </a>
 
-      <a
-        href={links.store}
-        target="_blank"
-        className="rounded-full border border-[#1f1a14]/15 px-3 py-2 transition hover:bg-[#1f1a14] hover:text-[#f4efe4]"
-      >
-        {t.store}
-      </a>
-    </nav>
-  </div>
-</header>
+            <a
+              href={links.store}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-[#1f1a14]/15 px-3 py-2 transition hover:bg-[#1f1a14] hover:text-[#f4efe4]"
+            >
+              {t.store}
+            </a>
+          </nav>
+        </div>
+      </header>
 
       <section id="top" className="pt-[57px]">
         <div className="mx-auto max-w-6xl">
@@ -374,12 +730,14 @@ export default function Home() {
           <p className="text-xs tracking-[0.6em] text-[#8a2f2a]">
             {t.dinner}
           </p>
+
           <h2 className="mt-4 text-5xl font-semibold tracking-[0.18em] md:text-7xl">
             MENU
           </h2>
+
           <div className="decor-line mx-auto mt-6">
-  <span className="decor-dot" />
-</div>
+            <span className="decor-dot" />
+          </div>
         </div>
 
         <div className="mt-12 space-y-16">
